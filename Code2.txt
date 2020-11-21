@@ -1,2 +1,7 @@
 hello world
+<<<<<<< HEAD
 dlrow olleh
+=======
+aaa
+aaaa
+>>>>>>> 410a4176902fcdabe924587e1bf4f2a5458296c0
