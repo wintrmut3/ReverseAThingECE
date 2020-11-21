@@ -1,4 +1,9 @@
 crash and burn!
 We are doing well! (wait we are?)
 
+<<<<<<< HEAD
 asdfghjkl;'
+=======
+changess
+more changes
+>>>>>>> 410a4176902fcdabe924587e1bf4f2a5458296c0
