@@ -1,5 +1,6 @@
 crash and burn!
 We are doing well! (wait we are?)
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 asdfghjkl;'
@@ -7,3 +8,15 @@ asdfghjkl;'
 changess
 more changes
 >>>>>>> 410a4176902fcdabe924587e1bf4f2a5458296c0
+=======
+what's happening
+idk
+changess
+more changes
+7
+
+
+7
+
+
+>>>>>>> 1bee69292c5f121221c80b2b6e16713ebd9d0e2f

@@ -1,8 +1,28 @@
 hello world
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 qwertyuiop[
 =======
 aaa
 aaaa
 >>>>>>> 410a4176902fcdabe924587e1bf4f2a5458296c0
+=======
+
+beep boop
+dlrow olleh
+aaa
+aaaa
+
+
+
+dlrow olleh
+
+aaa
+aaaa
+dlrow olleh
+aaa
+aaaa
+7
+
+>>>>>>> 1bee69292c5f121221c80b2b6e16713ebd9d0e2f
