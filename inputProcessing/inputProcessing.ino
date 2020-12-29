@@ -17,13 +17,12 @@ struct inputs_in {
 struct inputs_out playerO;
 struct inputs_in playerI;
 
-//preset rows for each player
-playerO.currentTrackTo[0] = 2;
-playerO.currentTrackTo[1] = 3;
-
 void setup() {
   // put your setup code here, to run once:
 
+  //preset rows for each player
+  playerO.currentTrackTo[0] = 2;
+  playerO.currentTrackTo[1] = 3;
 }
 
 void loop() {
