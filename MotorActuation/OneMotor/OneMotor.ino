@@ -84,6 +84,7 @@ void calibrate_Motor(){
   myStepper.runToNewPosition(numStepsRequired/2);           // go back to middle
   main_boardstate.itemLocs[0] = numStepsRequired / 2;       // update boardstates
   currentMotorSpeed[0] = 0;
+  calibrated = True;
 }
 
 board_state motor_actuation(board_state current_board_state, inputs_out current_inputs_out){
