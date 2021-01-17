@@ -59,6 +59,8 @@ void changingScore (boardstate *myStruct){
         }
     //if itemLocs[i] == 0 or 11 then that item is end of the lane
     //change the score
+        
+    //hello
 }
 }
 
