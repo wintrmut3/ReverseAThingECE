@@ -30,6 +30,10 @@ void loop() {
   playerO = checkInputs(playerI, playerO);
 }
 
+//Function: Processes player1 and player2's inputs and outputs what the motors should do
+//Input: struct inputs_in (from sensors)
+//Output: struct inputs_out (tells the motors what the players want to do)
+
 struct inputs_out checkInputs(struct inputs_in In, struct inputs_out Out) {
 
   //reset here because after motors have moved, the prior position changes to the moved one
@@ -38,67 +42,45 @@ struct inputs_out checkInputs(struct inputs_in In, struct inputs_out Out) {
 
   //player1 and player 2 have different left and rights, which is why the subtraction and addition signs are flipped
 
-  //player 1
-  if (In.p1left == true) { //move left
-    if (Out.currentTrackFrom[0] > 0) {
-      Out.currentTrackTo[0] = Out.currentTrackFrom[0] - 1;
-      Out.moving[0] = true;
+  //player 1 avatar. Check if it's still moving
+  if (Out.moving[0] == false) {
+
+    if (In.p1left == true) { //move left
+      if (Out.currentTrackFrom[0] > 0) { //check that going left won't go left of lane 0
+        Out.currentTrackTo[0] = Out.currentTrackFrom[0] - 1;
+      }
     }
-    else {
-      Out.moving[0] = false;
+
+    else if (In.p1right == true) { //move right
+      if (Out.currentTrackFrom[0] < 5) {//check that going right won't go right of lane 5
+        Out.currentTrackTo[0] = Out.currentTrackFrom[0] + 1;
+      }
+    }
+
+    else if (In.p1activate == true) {
+      //Reverse lane's velocity direction that the player is at
+      Out.laneVelocity[Out.currentTrackFrom[0]] *= -1;
     }
   }
 
-  else if (In.p1right == true) { //move right
-    if (Out.currentTrackFrom[0] < 5) {
-      Out.currentTrackTo[0] = Out.currentTrackFrom[0] + 1;
-      Out.moving[0] = true;
-    }
-    else {
-      Out.moving[0] = false;
-    }
-  }
+  //player 2. Check if they're moving
+  if (Out.moving[1] == false) {
 
-  else if (In.p1activate == true) { //reverse direction
-    if (Out.laneVelocity[Out.currentTrackFrom[0]] == 1) { //if the velocity of the current player's lane is positive, reverse that lane's velocity
-      Out.laneVelocity[Out.currentTrackFrom[0]] = -1;
+    if (In.p2left == true) { //move left
+      if (Out.currentTrackTo[1] < 5) { //check that going left won't go left of lane 5
+        Out.currentTrackTo[1] = Out.currentTrackFrom[1] + 1;
+      }
     }
-    else {
-      Out.laneVelocity[Out.currentTrackFrom[0]] = 1;
-    }
-    Out.moving[0] = false;
-  }
 
+    else if (In.p2right == true) { //move right
+      if (Out.currentTrackTo[1] > 0) { //check that going right won't go right of lane 0
+        Out.currentTrackTo[1] = Out.currentTrackFrom[1] - 1;
+      }
+    }
 
-  //player 2
-  if (In.p2left == true) { //move left
-    if (Out.currentTrackTo[1] < 5) {
-      Out.currentTrackTo[1] = Out.currentTrackFrom[1] + 1;
-      Out.moving[1] = true;
+    else if (In.p2activate == true) { //reverse direction
+      Out.laneVelocity[Out.currentTrackFrom[1]] *= -1;
     }
-    else {
-      Out.moving[1] = false;
-    }
-  }
-
-  else if (In.p2right == true) { //move right
-    if (Out.currentTrackTo[1] > 0) {
-      Out.currentTrackTo[1] = Out.currentTrackFrom[1] - 1;
-      Out.moving[1] = true;
-    }
-    else {
-      Out.moving[1] = false;
-    }
-  }
-
-  else if (In.p2activate == true) { //reverse direction
-    if (Out.laneVelocity[Out.currentTrackFrom[1]] == 1) {
-      Out.laneVelocity[Out.currentTrackFrom[1]] = -1;
-    }
-    else {
-      Out.laneVelocity[Out.currentTrackFrom[1]] = 1;
-    }
-    Out.moving[1] = false;
   }
   return Out;
 }
