@@ -110,7 +110,7 @@ void calibrate_Motor(){
 board_state motor_actuation(board_state current_board_state, inputs_out current_inputs_out){
     for(int i = 0; i < 6; i++){
         main_boardstate.itemLocs[i] = myStepper.currentPosition();
-        if(myStepper.currentPosition() >= numStepsRequired || myStepper.currentPosition() <= numStepsRequired){
+        if(myStepper.currentPosition() >= numStepsRequired || myStepper.currentPosition() <= -numStepsRequired){
           motorState[0] = GAME_MODE_SCORE_RESET;
           currentMotorSpeed[0] = -currentMotorSpeed[0];
           myStepper.moveTo(0);
