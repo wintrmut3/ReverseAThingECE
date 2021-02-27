@@ -115,7 +115,6 @@ board_state motor_actuation(board_state current_board_state, inputs_out current_
           currentMotorSpeed[0] = -currentMotorSpeed[0];
           myStepper.moveTo(0);
           myStepper.setSpeed(currentMotorSpeed[0]);
-          main_boardstate.itemLocs[0] = myStepper.currentPosition();
         }
         if(motorState[i] != GAME_MODE_SCORE_RESET){
           if(current_inputs_out.laneVelocity[i] > 0 && currentMotorSpeed[i] != motorSpeed){    // lane velocity > 0 means towards player 1
