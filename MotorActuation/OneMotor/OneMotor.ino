@@ -106,7 +106,7 @@ void calibrate_Motor(){
    * }
   */
 }
-
+// use limit switches as part of reset
 board_state motor_actuation(board_state current_board_state, inputs_out current_inputs_out){
     for(int i = 0; i < 6; i++){
         main_boardstate.itemLocs[i] = myStepper.currentPosition();
