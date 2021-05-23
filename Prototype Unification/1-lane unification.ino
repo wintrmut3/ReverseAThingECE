@@ -1,3 +1,4 @@
+  
 //unification of ultrasonic sensor code and motor code for 1-lane prototype
 
 #include <AccelStepper.h>
@@ -29,14 +30,16 @@
  *  
 */
 
-//const int ledPin = 13; // calibration led
-//const int resetPin = 12;
-//const int gamePin = 11;
-//const int beyondPlayerOne = 10;
-//const int beyondPlayerTwo = 9;
-//int playerOne = 8;   // pushbutton to move towards player One
-//int playerTwo = 4;   // pushbutton to move towards player two
-//int val = 0;         // variable for reading the pin status
+const int ledPin = 13; // calibration led
+const int resetPin = 12;
+const int gamePin = 11;
+const int beyondPlayerOne = 10;
+const int beyondPlayerTwo = 9;
+const int limitSwitch = 7;
+
+int playerOne = 8;   // pushbutton to move towards player One
+int playerTwo = 4;   // pushbutton to move towards player two
+int val = 0;         // variable for reading the pin status
 
 //int that says how many cycles the inputs will be "buffered" for to check for consistency - optimal number is around 4-6
 const int BUFFER = 6;
@@ -250,11 +253,11 @@ void loop()
 
 struct inputs_out in_to_out()
 {
-  if (main_inputs_in.p1a == true)
+  if (main_inputs_in.p1activate == true)
   {
     main_inputs_out.laneVelocity *= -1;
   }
-  if (main_inputs_in.p2a == true)
+  if (main_inputs_in.p2activate == true)
   {
     main_inputs_out.laneVelocity *= -1;
   }
@@ -323,8 +326,8 @@ int bufferCheck(long *inputs)
 void shiftback(long *inputs, long add)
 {
   for (int i = 0; i < BUFFER - 1; i++)
-  {(
-    inputs[i]=inputs[i+1];
+  {
+    inputs[i] = inputs[i+1];
   }
   inputs[BUFFER - 1] = add;
 }
@@ -366,7 +369,7 @@ struct inputs_in getInputsPrioritized()
   bool p1a = processInput(echop1a, triggerp1a, GIp1a);
   inp.p1activate = p1a;
   bool p2a = processInput(echop2a, triggerp2a, GIp2a);
-  inp.p2aactivate = p2a;
+  inp.p2activate = p2a;
   return inp;
 }
 //Gets the struct with inputs without any internal prioritization, just hard reads the inputs
