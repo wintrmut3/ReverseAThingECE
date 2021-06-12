@@ -119,14 +119,17 @@ void onReceive()
 
         */
 
-    }else if(OPCODE == 4){// Motor direction update
+    }else if(OPCODE == 4){// Motor direction update (from Master which processed user input to item motor)
+        // NOTE BEFORE I FORGET: Player motor direction can be directly updated from  master, no interrupt needed.
         // Interpret 1 == 1, 0 == -1
         struct inputs_out main_inputs_out;
         char speeds = message[0];
         for(int i = 0; i < 6; i++){
             main_inputs_out.laneVelocity[i] = speeds & 1;
             speeds = speeds >> 1; // Take the least significant bit everytime
-        }
+        } // lane.Velocity should be properly populated after this
+
+        // update motor directions
 
     }
 
