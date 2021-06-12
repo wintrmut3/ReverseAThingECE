@@ -57,7 +57,7 @@ void onReceive()
     * *****MOTOR CODE********* (AYESHA):
     * (TO ITEM MOTOR ARDUINO) Randomize & start motors (3 in each direction) 
 
-    * ******* OLEDS ********* (NATASHA):
+    * ******* OLEDS ********* (NATASHA): can move to main loop later
     * (ON MAIN ARDUINO, NO SIGNAL) Randomize and set OLEDs 
 
     ******** Timer Strip ******* (DIVYA):
@@ -75,7 +75,7 @@ void onReceive()
         /* *****MOTOR CODE********* (AYESHA):
         *   Reset motors to middle of belt and come to a stop
 
-        ******** Timer Strip ******* (DIVYA):
+        ******** Timer Strip ******* (DIVYA): Move to main function loop later (Reed switch and LED arduino)
         *   OPTIONAL: Initiate end game theatrics on LED strip
         *   REQ: LED can either power down at this point or do low power twinkling
         * 
