@@ -48,32 +48,77 @@ void onReceive()
 
     char OPCODE = message[1] & 224; // Bitwise not logical and
     OPCODE = OPCODE >> 5; // Just want 3 MSB
+    // made the choice to store lane in binary rather than one hot, open to changes though
+    int laneIndex;
 
     if(OPCODE == 0){ // Game start
     /* To Do: (note: for OPCODE 0 and 1, no need to read data bits, just opcode itself should be sufficient to infer needed actions)
-    * Randomize & start motors (3 in each direction) (TO ITEM MOTOR ARDUINO)
-    * Reset Score to 0 (ON MAIN ARDUINO, NO SIGNAL)
-    * Randomize and set OLEDs (ON MAIN ARDUINO, NO SIGNAL)
-    * Start the timer (TO REED SWITCH ARDUINO)
+
+    * *****MOTOR CODE********* (AYESHA):
+    * (TO ITEM MOTOR ARDUINO) Randomize & start motors (3 in each direction) 
+
+    * ******* OLEDS ********* (NATASHA):
+    * (ON MAIN ARDUINO, NO SIGNAL) Randomize and set OLEDs 
+
+    ******** Timer Strip ******* (DIVYA):
+    * (TO REED/LED SWITCH ARDUINO) Start the timer 
+    * 
+    * *****7 Seg***********(Avelyn?):
+    * Reset Score to 0
+
     */
 
-    }else if(OPCODE == 1){
-        // Stop motors, timer/ OLEDS/ LEDS should freeze
-    }else if(OPCODE == 2){ // End of lane notification
+    }else if(OPCODE == 1){ // Game End
+        // Reset motors to middle, timer/ OLEDS/ LEDS should freeze
+        // in general loop function just have a: game on/ game off mode/ variable for loops
+
+        /* *****MOTOR CODE********* (AYESHA):
+        *   Reset motors to middle of belt and come to a stop
+
+        ******** Timer Strip ******* (DIVYA):
+        *   OPTIONAL: Initiate end game theatrics on LED strip
+        *   REQ: LED can either power down at this point or do low power twinkling
+        * 
+        * 
+        * ******* OLEDS ********* (NATASHA):
+        *   OLEDS can either continue to display gifs and ocassionally shuffle or turn off altogether. 
+
+
+        */
+        
+    }else if(OPCODE == 2){ // End of lane notification of item motor
         // This is a signal to the main arudino to increment the points
         // QUESTION: is the score being constantly written or only written at update? I think it's constant, so I think the score can just be incremented in this fucntion, and then
         // it will automatically update in next loop
+
+        // Isolate the motor number in 3 Least Significant Bits (LSB) laneIndex in range [0,5]
+        laneIndex = message[0] & 7; // 7 is 3'b111, so if you logical AND it with the message, only the lower 3 bits are saved in motorIndex
+        
 
         // Check here whether or not the lane was good or bad and change the score accordingly
         // QUESTION: do we have a struct for that yet?
 
         // If bad, randomly switch two items positiveness and update OLEDS
+        /********* NATASHA**********: Whenever a motor reaches the end of the lane, the code will enter the OPCODE == 2 if statement
+        *   So at this point of the code you know that the end of lane has been reached, which lane it was (laneIndex) from the message
+        *   The information of which lanes had a good/ bad item should be kept and set locally in your function already, so you can determine what action to take based on being a good/bad item
+        *   Scoring LEDs and OLED are able to be globally accessed, so scoring will be accessing the good/bad item structs to determine.. score..
 
-    }else if(OPCODE == 3){ // Reed swtich activation
+        */
+
+    }else if(OPCODE == 3){ // Reed switch activation, only pertinent to motor unos
         // This signal goes from Reed switch arduino and is recieved by Item movement or Main arduino for their respective motors
+        // QUESTION: are the item and player motors on the same arduino? 
 
-        // Find out which is the one hot bit, is there a faster way than just using a for loop to manually check?
-        
+        // If this is the Item movement motor, indexes for [0,5]
+        // If this is the player movement motor, indexes for [0,1]
+        laneIndex = message[0] & 7;
+
+        /* *****MOTOR CODE********* (AYESHA):
+        *   The motors have now reached the middle and should be able to be activated again by user input
+
+        */
+
     }else if(OPCODE == 4){// Motor direction update
         // Interpret 1 == 1, 0 == -1
         struct inputs_out main_inputs_out;
