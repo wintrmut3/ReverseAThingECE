@@ -108,7 +108,6 @@ void onReceive()
 
     }else if(OPCODE == 3){ // Reed switch activation, only pertinent to motor unos
         // This signal goes from Reed switch arduino and is recieved by Item movement or Main arduino for their respective motors
-        // QUESTION: are the item and player motors on the same arduino? 
 
         // If this is the Item movement motor, indexes for [0,5]
         // If this is the player movement motor, indexes for [0,1]
@@ -118,6 +117,8 @@ void onReceive()
         *   The motors have now reached the middle and should be able to be activated again by user input
 
         */
+
+       // Reed switches might stay physically activated for a while ( if the magnet is still close by ), theoretically will only send reed switch signal on rising data edge (like rising clk edge)
 
     }else if(OPCODE == 4){// Motor direction update (from Master which processed user input to item motor)
         // NOTE BEFORE I FORGET: Player motor direction can be directly updated from  master, no interrupt needed.
