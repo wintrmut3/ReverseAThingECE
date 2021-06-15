@@ -1,4 +1,7 @@
 // for addressing, 1 is master, 2 is motor slave, and 3 is OLED slave
+
+int score = 0;
+
 #include <Wire.h>
 
 struct inputs_out{
@@ -36,7 +39,7 @@ void onReceive()
      * Most significant 3 bits will represent the Operation code or OPCODE
      * OPCODE == 0: Game start
      * OPCODE == 1: Game End
-     * OPCODE == 2: End of lane notification from motor arduino
+     * OPCODE == 2 : End of lane notification from motor arduino
      * OPCODE == 3: Reed switch activation
      * OPCODE == 4: Motor direction update
      * 
@@ -51,22 +54,37 @@ void onReceive()
     // made the choice to store lane in binary rather than one hot, open to changes though
     int laneIndex;
 
-    if(OPCODE == 0){ // Game start
-    /* To Do: (note: for OPCODE 0 and 1, no need to read data bits, just opcode itself should be sufficient to infer needed actions)
+    if(OPCODE == 0){ 
 
-    * *****MOTOR CODE********* (AYESHA):
-    * (TO ITEM MOTOR ARDUINO) Randomize & start motors (3 in each direction) 
+        // Game start
+        /* To Do: (note: for OPCODE 0 and 1, no need to read data bits, just opcode itself should be sufficient to infer needed actions)
 
-    * ******* OLEDS ********* (NATASHA): can move to main loop later
-    * (ON MAIN ARDUINO, NO SIGNAL) Randomize and set OLEDs 
+        * *****MOTOR CODE********* (AYESHA):
+        * (TO ITEM MOTOR ARDUINO) Randomize & start motors (3 in each direction) 
 
-    ******** Timer Strip ******* (DIVYA):
-    * (TO REED/LED SWITCH ARDUINO) Start the timer 
-    * 
-    * *****7 Seg***********(Avelyn?):
-    * Reset Score to 0
+        * ******* OLEDS ********* (NATASHA):
+        * (ON MAIN ARDUINO, NO SIGNAL) Randomize and set OLEDs 
 
-    */
+        ******** Timer Strip ******* (DIVYA):
+        * (TO REED/LED SWITCH ARDUINO) Start the timer 
+        * 
+        * *****7 Seg***********(Avelyn?):
+        * Reset Score to 0
+
+        */
+       char outMessage[2];
+       outMessage[0] = 0;
+
+       Wire.beginTransmission(2);
+       Wire.send(outMessage);
+       Wire.endTransmission();
+
+       Wire.beginTransmission(3);
+       Wire.send(outMessage);
+       Wire.endTransmission();
+
+       score = 0;
+       //send program start to reed_switches and item_motors
 
     }else if(OPCODE == 1){ // Game End
         // Reset motors to middle, timer/ OLEDS/ LEDS should freeze
@@ -75,7 +93,7 @@ void onReceive()
         /* *****MOTOR CODE********* (AYESHA):
         *   Reset motors to middle of belt and come to a stop
 
-        ******** Timer Strip ******* (DIVYA): Move to main function loop later (Reed switch and LED arduino)
+        ******** Timer Strip ******* (DIVYA):
         *   OPTIONAL: Initiate end game theatrics on LED strip
         *   REQ: LED can either power down at this point or do low power twinkling
         * 
@@ -85,7 +103,18 @@ void onReceive()
 
 
         */
-        
+
+        char outMessage[2];
+        outMessage[0] = 1;
+
+        Wire.beginTransmission(2);
+        Wire.send(outMessage);
+        Wire.endTransmission();
+
+        Wire.beginTransmission(3);
+        Wire.send(outMessage);
+        Wire.endTransmission();
+
     }else if(OPCODE == 2){ // End of lane notification of item motor
         // This is a signal to the main arudino to increment the points
         // QUESTION: is the score being constantly written or only written at update? I think it's constant, so I think the score can just be incremented in this fucntion, and then
@@ -108,6 +137,7 @@ void onReceive()
 
     }else if(OPCODE == 3){ // Reed switch activation, only pertinent to motor unos
         // This signal goes from Reed switch arduino and is recieved by Item movement or Main arduino for their respective motors
+        // QUESTION: are the item and player motors on the same arduino? 
 
         // If this is the Item movement motor, indexes for [0,5]
         // If this is the player movement motor, indexes for [0,1]
@@ -117,8 +147,6 @@ void onReceive()
         *   The motors have now reached the middle and should be able to be activated again by user input
 
         */
-
-       // Reed switches might stay physically activated for a while ( if the magnet is still close by ), theoretically will only send reed switch signal on rising data edge (like rising clk edge)
 
     }else if(OPCODE == 4){// Motor direction update (from Master which processed user input to item motor)
         // NOTE BEFORE I FORGET: Player motor direction can be directly updated from  master, no interrupt needed.
