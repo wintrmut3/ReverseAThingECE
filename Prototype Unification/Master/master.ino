@@ -75,7 +75,7 @@ void onReceive()
        char outMessage[2];
        outMessage[0] = 0;
 
-       Wire.beginTransmission(2);
+       Wire.beginTransmission(2); // message to motor arduino
        Wire.send(outMessage);
        Wire.endTransmission();
 
