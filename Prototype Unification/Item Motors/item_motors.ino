@@ -42,18 +42,19 @@ struct item_motor_info{
 
 item_motor_info main_motor_info;
 
-main_motor_info.dirPins[0] = 2
-main_motor_info.stepPins[0] = 3
-main_motor_info.dirPins[1] = 4
-main_motor_info.stepPins[1] = 5
-main_motor_info.dirPins[2] = 6
-main_motor_info.stepPins[2] = 7
-main_motor_info.dirPins[3] = 8
-main_motor_info.stepPins[3] = 9
-main_motor_info.dirPins[4] = 10
-main_motor_info.stepPins[4] = 11
-main_motor_info.dirPins[5] = 12
-main_motor_info.stepPins[5] = 13
+main_motor_info.dirPins[0] = 2;
+main_motor_info.stepPins[0] = 3;
+main_motor_info.dirPins[1] = 4;
+main_motor_info.stepPins[1] = 5;
+main_motor_info.dirPins[2] = 6;
+main_motor_info.stepPins[2] = 7;
+main_motor_info.dirPins[3] = 8;
+main_motor_info.stepPins[3] = 9;
+main_motor_info.dirPins[4] = 10;
+main_motor_info.stepPins[4] = 11;
+main_motor_info.dirPins[5] = 12;
+main_motor_info.stepPins[5] = 13;
+int positions[6];
 
 // assigning motor pins in struct
 
