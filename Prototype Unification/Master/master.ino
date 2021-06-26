@@ -140,7 +140,7 @@ void onReceive()
         // QUESTION: are the item and player motors on the same arduino? 
 
         // If this is the Item movement motor, indexes for [0,5]
-        // If this is the player movement motor, indexes for [0,1]
+        // If this is the player movement motor, indexes for [0,1] (ie. [6,7])
         laneIndex = message[0] & 7;
 
         /* *****MOTOR CODE********* (AYESHA):
