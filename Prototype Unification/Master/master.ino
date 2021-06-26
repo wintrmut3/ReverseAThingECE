@@ -1,6 +1,7 @@
 // for addressing, 1 is master, 2 is motor slave, and 3 is OLED slave
 
-int score = 0;
+int p1_score;
+int p2_score;
 
 #include <Wire.h>
 
@@ -73,7 +74,7 @@ void onReceive()
 
         */
        char outMessage[2];
-       outMessage[0] = 0;
+       outMessage[1] = 0;
 
        Wire.beginTransmission(2); // message to motor arduino
        Wire.send(outMessage);
@@ -83,7 +84,8 @@ void onReceive()
        Wire.send(outMessage);
        Wire.endTransmission();
 
-       score = 0;
+       p1_score = 0;
+       p2_score = 0;
        //send program start to reed_switches and item_motors
 
     }else if(OPCODE == 1){ // Game End
@@ -105,7 +107,7 @@ void onReceive()
         */
 
         char outMessage[2];
-        outMessage[0] = 1;
+        outMessage[0] = 2; // message is 0b 0010 0000 (should be 1 when shifted over by 5)
 
         Wire.beginTransmission(2);
         Wire.send(outMessage);
@@ -134,6 +136,12 @@ void onReceive()
         *   Scoring LEDs and OLED are able to be globally accessed, so scoring will be accessing the good/bad item structs to determine.. score..
 
         */
+        char outMessage[2];
+        outMessage[0] = 4; // message is 0b 0100 0000 (should be 2 when shifted over by 5)
+
+        Wire.beginTransmission(3);
+        Wire.send(outMessage);
+        Wire.endTransmission();
 
     }else if(OPCODE == 3){ // Reed switch activation, only pertinent to motor unos
         // This signal goes from Reed switch arduino and is recieved by Item movement or Main arduino for their respective motors
