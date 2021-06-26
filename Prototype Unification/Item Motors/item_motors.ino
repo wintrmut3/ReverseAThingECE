@@ -54,7 +54,8 @@ main_motor_info.dirPins[4] = 10;
 main_motor_info.stepPins[4] = 11;
 main_motor_info.dirPins[5] = 12;
 main_motor_info.stepPins[5] = 13;
-int positions[6];
+
+int item_destinations[6];
 
 // assigning motor pins in struct
 
@@ -119,7 +120,16 @@ void onReceive()
     // custom variable update here
 
     if(OPCODE == 0){ 
-        //game start
-        
+        // game start
+        // set initial motor destinations
+        item_destinations[0] = 0;
+        item_destinations[1] = 0;
+        item_destinations[2] = 0;
+        item_destinations[3] = 1000;
+        item_destinations[4] = 1000;
+        item_destinations[5] = 1000;
+
+        // start motors in non-blocking configuration
+        run();
     }
 }
