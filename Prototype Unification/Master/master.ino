@@ -75,6 +75,8 @@ void onReceive()
         * ******* OLEDS ********* (NATASHA):
         * (ON MAIN ARDUINO, NO SIGNAL) Randomize and set OLEDs 
 
+        oledSetUp();
+
         ******** Timer Strip ******* (DIVYA):
         * (TO REED/LED SWITCH ARDUINO) Start the timer 
         * 
@@ -103,7 +105,7 @@ void onReceive()
         * ******* OLEDS ********* (NATASHA):
         *   OLEDS can either continue to display gifs and ocassionally shuffle or turn off altogether. 
 
-
+            NATASHA: I think they should either turn off or I can create another gif with like fireworks or a party popper
         */
 
 
@@ -126,6 +128,7 @@ void onReceive()
         *   The information of which lanes had a good/ bad item should be kept and set locally in your function already, so you can determine what action to take based on being a good/bad item
         *   Scoring LEDs and OLED are able to be globally accessed, so scoring will be accessing the good/bad item structs to determine.. score..
 
+            itemSwitching(laneIndex,laneStatus[laneIndex]);
         */
 
     }else if(OPCODE == 3){ // Reed switch activation, only pertinent to motor unos
