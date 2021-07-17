@@ -3,10 +3,10 @@
 /*when a bad item is captured, that bad item turns to good and a random good item turns bad. The input is which lane contains a captured
  * item and if it's a good or bad one. 
  */
-void itemSwitching(int laneIndex, int badItem) {
+void itemSwitching(int laneIndex, int item) {
 
   //if the captured item was a bad one: turn that bad one into a good one, turn random good one into bad one
-  if (badItem == 0) {
+  if (item == 0) {
     
     //generate a random lane to be switched to bad
     int randomLane = random(0, 6);
