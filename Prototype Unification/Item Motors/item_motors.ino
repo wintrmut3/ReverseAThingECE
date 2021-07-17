@@ -125,7 +125,7 @@ void onReceive()
         item_destinations[0] = 0;
         item_destinations[1] = 0;
         item_destinations[2] = 0;
-        item_destinations[3] = 1000;
+        item_destinations[3] = 1000; // filler positions, actual item destinations will be calibrated
         item_destinations[4] = 1000;
         item_destinations[5] = 1000;
 

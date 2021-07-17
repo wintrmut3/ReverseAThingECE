@@ -107,7 +107,7 @@ void onReceive()
         */
 
         char outMessage[2];
-        outMessage[0] = 2; // message is 0b 0010 0000 (should be 1 when shifted over by 5)
+        outMessage[0] = 2; // message is 0b 0010 (should be 1 when shifted over by 5)
 
         Wire.beginTransmission(2);
         Wire.send(outMessage);
