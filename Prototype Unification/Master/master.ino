@@ -76,13 +76,6 @@ void onReceive()
        char outMessage[2];
        outMessage[1] = 0;
 
-       Wire.beginTransmission(2); // message to motor arduino
-       Wire.send(outMessage);
-       Wire.endTransmission();
-
-       Wire.beginTransmission(3);
-       Wire.send(outMessage);
-       Wire.endTransmission();
 
        p1_score = 0;
        p2_score = 0;
@@ -109,13 +102,6 @@ void onReceive()
         char outMessage[2];
         outMessage[0] = 2; // message is 0b 0010 (should be 1 when shifted over by 5)
 
-        Wire.beginTransmission(2);
-        Wire.send(outMessage);
-        Wire.endTransmission();
-
-        Wire.beginTransmission(3);
-        Wire.send(outMessage);
-        Wire.endTransmission();
 
     }else if(OPCODE == 2){ // End of lane notification of item motor
         // This is a signal to the main arudino to increment the points
@@ -138,10 +124,6 @@ void onReceive()
         */
         char outMessage[2];
         outMessage[0] = 4; // message is 0b 0100 0000 (should be 2 when shifted over by 5)
-
-        Wire.beginTransmission(3);
-        Wire.send(outMessage);
-        Wire.endTransmission();
 
     }else if(OPCODE == 3){ // Reed switch activation, only pertinent to motor unos
         // This signal goes from Reed switch arduino and is recieved by Item movement or Main arduino for their respective motors
@@ -170,7 +152,13 @@ void onReceive()
 
     }
 
+    Wire.beginTransmission(2); // message to motor arduino
+    Wire.send(outMessage);
+    Wire.endTransmission();
 
+    Wire.beginTransmission(3);
+    Wire.send(outMessage);
+    Wire.endTransmission();
 
 
 
