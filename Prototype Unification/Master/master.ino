@@ -71,7 +71,9 @@ void onReceive()
 
         * *****MOTOR CODE********* (AYESHA):
         * (TO ITEM MOTOR ARDUINO) Randomize & start motors (3 in each direction) 
-
+		
+		randomizeStartMotors();
+			
         * ******* OLEDS ********* (NATASHA):
         * (ON MAIN ARDUINO, NO SIGNAL) Randomize and set OLEDs 
 
@@ -96,6 +98,8 @@ void onReceive()
 
         /* *****MOTOR CODE********* (AYESHA):
         *   Reset motors to middle of belt and come to a stop
+			
+		resetMotors();
 
         ******** Timer Strip ******* (DIVYA):
         *   OPTIONAL: Initiate end game theatrics on LED strip
@@ -130,6 +134,11 @@ void onReceive()
 
             itemSwitching(laneIndex,laneStatus[laneIndex]);
         */
+		/* Reset Motor
+		
+		resetOneMotor(laneIndex);
+		
+		*/
 
     }else if(OPCODE == 3){ // Reed switch activation, only pertinent to motor unos
         // This signal goes from Reed switch arduino and is recieved by Item movement or Main arduino for their respective motors
@@ -141,7 +150,9 @@ void onReceive()
 
         /* *****MOTOR CODE********* (AYESHA):
         *   The motors have now reached the middle and should be able to be activated again by user input
-
+		
+		motorsResetComplete(laneIndex);
+		
         */
 
     }else if(OPCODE == 4){// Motor direction update (from Master which processed user input to item motor)
@@ -154,8 +165,9 @@ void onReceive()
             speeds = speeds >> 1; // Take the least significant bit everytime
         } // lane.Velocity should be properly populated after this
 
-        // update motor directions
-
+        /* update motor directions
+		UpdateMotorDirections(main_inputs_out);
+		*/
     }
 
 
